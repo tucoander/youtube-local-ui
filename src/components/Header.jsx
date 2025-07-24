@@ -8,14 +8,27 @@ import {
   Button,
   Image,
   Text,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
+import {
+  MdHome,
+  MdSubscriptions,
+  MdVideoLibrary,
+  MdSettings,
+} from "react-icons/md";
 import { useState } from "react";
 import logo from "../assets/youtube-local.ico";
 
 export default function Header({ onSearch }) {
   const [query, setQuery] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -33,6 +46,11 @@ export default function Header({ onSearch }) {
         justify="space-between"
         gap={4}
         flexWrap="wrap"
+        px={4}
+        py={2}
+        boxShadow="sm"
+        position="relative"
+        zIndex="1100"
       >
         {/* Logo + nome */}
         <Flex align="center" gap={2} minW="200px">
@@ -41,7 +59,9 @@ export default function Header({ onSearch }) {
             variant="ghost"
             color="white"
             aria-label="Menu"
+            onClick={onOpen}
           />
+
           {logo && (
             <Image src={logo} alt="Logo" boxSize="30px" objectFit="contain" />
           )}
@@ -112,6 +132,31 @@ export default function Header({ onSearch }) {
         {/* Espaço reservado para alinhamento ou ícones futuros */}
         <Box w="40px" />
       </Flex>
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent bg="#020202" color="white" marginTop="70px">
+          <DrawerBody>
+            <VStack align="start" spacing={6}>
+              <Flex align="center" gap={3} cursor="pointer">
+                <MdHome size={24} />
+                <Text fontSize="md">Início</Text>
+              </Flex>
+              <Flex align="center" gap={3} cursor="pointer">
+                <MdSubscriptions size={24} />
+                <Text fontSize="md">Inscrições</Text>
+              </Flex>
+              <Flex align="center" gap={3} cursor="pointer">
+                <MdVideoLibrary size={24} />
+                <Text fontSize="md">Biblioteca</Text>
+              </Flex>
+              <Flex align="center" gap={3} cursor="pointer">
+                <MdSettings size={24} />
+                <Text fontSize="md">Configurações</Text>
+              </Flex>
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 }

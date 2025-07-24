@@ -58,6 +58,9 @@ function App() {
         ),
       }));
 
+      const jsonString = JSON.stringify(enrichedVideos, null, 2);
+      console.log(jsonString);
+
       setVideos(enrichedVideos);
     } catch (err) {
       console.error(err);
