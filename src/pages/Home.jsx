@@ -10,10 +10,11 @@ import {
 export default function Home({ videos, loading }) {
   const handleDownload = (videoId) => {
     const url = `https://www.youtube.com/watch?v=${videoId}`;
-    window.open(
-      `http://localhost:5000/aguardando?url=${encodeURIComponent(url)}`,
-      "_blank"
-    );
+    //window.open(
+    //  `http://localhost:5000/aguardando?url=${encodeURIComponent(url)}`,
+    //  "_blank"
+    //);
+    window.open(url, "_blank");
   };
 
   return (
@@ -32,7 +33,7 @@ export default function Home({ videos, loading }) {
         >
           {videos.map((video) => (
             <Box
-              key={video.id}
+              key={video.id?.videoId || video.etag}
               bg="#121212"
               borderRadius="lg"
               overflow="hidden"
